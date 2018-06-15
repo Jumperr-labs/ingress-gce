@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: websocketexample
-        image: [YOUR_IMAGE]
+        image: gcr.io/jemu-web-app/sample:v4
         imagePullPolicy: Always
         ports:
         - name: http
