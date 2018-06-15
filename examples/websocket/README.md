@@ -2,16 +2,11 @@
 
 Any websocket server will suffice; however, for the purpose of demonstration, we'll use the gorilla/websocket package in a Go binary.
 
-### Build
-```shell
-➜ CGO_ENABLED=0 go build -o wsserver
-```
-
 ### Containerize
 ```shell
-➜ docker build -t [YOUR_IMAGE] .
+➜ docker build -t gcr.io/jemu-web-app/sample:v4 .
 ...
-➜ docker push [YOUR_IMAGE]
+➜ gcloud docker -- push gcr.io/jemu-web-app/sample:v4
 ...
 ```
 
@@ -23,6 +18,7 @@ Either update the image in the `Deployment` to your newly created image.
 ```
 
 ```shell
+➜ gcloud container clusters create hello-cluster --num-nodes=3
 ➜ kubectl create -f deployment.yaml
 deployment "ws-example" created
 service "ws-example-svc" created
@@ -38,7 +34,7 @@ NAME             HOSTS     ADDRESS          PORTS     AGE
 ws-example-ing   *         xxx.xxx.xxx.xxx   80        3m
 ```
 
-Wait for the loadbalancer to be created and functioning. Visit http://xxx.xxx.xxx.xxx and click 'Connect'. You should receive messages from server with timestamps.
+This can take 20 minutes. Wait for the loadbalancer to be created and functioning. Visit http://xxx.xxx.xxx.xxx and click 'Connect'. You should receive messages from server with timestamps.
 
 ### Change backend timeout
 
